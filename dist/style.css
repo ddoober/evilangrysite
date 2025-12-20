@@ -8,4 +8,17 @@ body {
   padding: 0 10px;
 }
 
+#game-container:fullscreen ruffle-object,
+#game-container:fullscreen iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
 
+#game-container:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
