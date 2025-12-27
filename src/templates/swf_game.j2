@@ -1,0 +1,18 @@
+{% extends "templates/base.j2" %}
+
+{% block content %}
+  <h1>{% block game_title %}{% endblock %}</h1>
+  <div id="game-container">
+    <object width="700" height="500">
+      <param name="movie" value="{{ swf_url }}">
+      <embed src="{{ swf_url }}" width="700" height="500"></embed>
+    </object>
+  </div>
+  <button id="fullscreen-btn">Go Fullscreen</button>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <script src="/fullscreen.js"></script>
+  <p>
+    {% block game_description %}
+    {% endblock %}
+  </p>
+{% endblock %}

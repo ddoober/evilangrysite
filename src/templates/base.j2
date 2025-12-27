@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta charset="UTF-8" />
+  <title>{% block title %}evilangry.site{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="This website is no good. Everything evil is held here. Watch your back. Don't get killed dude." />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <link rel="icon" href="/favicon.png">
+  {% endblock %}
+</head>
+<body>
+  <a href="/">go back to home</a>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

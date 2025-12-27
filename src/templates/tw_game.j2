@@ -1,0 +1,15 @@
+{% extends "templates/base.j2" %}
+
+{% block content %}
+  <h1>{% block game_title %}{% endblock %}</h1>
+  <div id="game-container">
+    <iframe src="{{ turbowarp_url }}" width="700" height="500">
+    </iframe>
+  </div>
+  <button id="fullscreen-btn">Go Fullscreen</button>
+  <script src="/fullscreen.js"></script>
+  <p>
+    {% block game_description %}
+    {% endblock %}
+  </p>
+{% endblock %}
