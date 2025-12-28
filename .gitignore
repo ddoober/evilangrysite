@@ -2,3 +2,4 @@
 dist/
 static/game-content/
 .venv/
+__pycache__/
