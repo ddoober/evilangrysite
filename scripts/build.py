@@ -28,7 +28,9 @@ def replace_root_dir_and_ext(path, src_root, dist_root, dist_ext):
     return dist_path.with_suffix(dist_ext)
 
 
-def main():
+def build():
+    print("rendering templates...")
+
     src_dir = Path("./src")
     dist_dir = Path("./dist")
     static_dir = Path("./static")
@@ -50,9 +52,11 @@ def main():
     
     shutil.copytree(static_dir, dist_dir, dirs_exist_ok=True)
 
+    print("done!")
+
     return
 
 
 if __name__ == "__main__":
-    main()
+    build()
 
