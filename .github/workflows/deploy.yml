@@ -1,0 +1,20 @@
+name: Deploy to S3
+
+on:
+  push:
+    paths:
+      - 'static/**'
+      - 'src/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Render website
+        run: |
+          uv run ./scripts/build.py
+
