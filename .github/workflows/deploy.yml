@@ -16,5 +16,7 @@ jobs:
 
       - name: Render website
         run: |
+          sudo apt-get update
+          sudo apt-get install -y uv
           uv run ./scripts/build.py
 
