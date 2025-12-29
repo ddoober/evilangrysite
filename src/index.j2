@@ -4,7 +4,7 @@
   <br><br><br>
   <h1>WELCOME TO EVIL ANGRY SITE FOR GAMES YEAH</h1>
   <br>
-  {% for file in get_template_files('game/*.j2') %}  
-    {{ file }}
+  {% for file in get_template_files('game/*.j2') %}
+    <a href="/{{ file }}">{{ file|replace("game/", "", 1)|replace(".html", "", 1)|replace("-", " ")|title }}</a><br>
   {% endfor %}  
 {% endblock %}
