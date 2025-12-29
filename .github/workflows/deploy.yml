@@ -29,5 +29,5 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_REGION: ap-southeast-2
         run: |
-          uv run -m awscli s3 sync ./dist $AWS_S3_BUCKET --delete --region $AWS_REGION``
+          uv run -m awscli s3 sync ./dist ${{ env.AWS_S3_BUCKET }} --delete --region ${{ env.AWS_REGION }}
 
