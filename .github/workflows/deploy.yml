@@ -16,7 +16,6 @@ jobs:
 
       - name: Render website
         run: |
-          sudo apt-get update
-          sudo apt-get install -y uv
+          curl -LsSf https://astral.sh/uv/install.sh | sh
           uv run ./scripts/build.py
 
