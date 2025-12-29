@@ -1,6 +1,7 @@
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 import shutil
+import glob
 
 
 def recurse_dir(paths, dir, depth, ignore, ext):
@@ -28,6 +29,22 @@ def replace_root_dir_and_ext(path, src_root, dist_root, dist_ext):
     return dist_path.with_suffix(dist_ext)
 
 
+def get_template_files(pattern: str) -> list:  
+    """Return a list of template files matching a wildcard pattern."""  
+    # Get Jinja2's template search path (where your templates live)  
+    template_env = Environment(loader=FileSystemLoader("src"))  # Adjust path as needed  
+    search_path = template_env.loader.searchpath[0]  # Path to your templates directory  
+
+    # Use glob to find files relative to the template directory  
+    file_paths = glob.glob(f"{search_path}/{pattern}", recursive=False)  
+
+    # Return paths relative to the template directory (for Jinja's `include`)  
+    relative_paths = [path.replace(f"{search_path}/", "") for path in file_paths]  
+    paths_with_correct_ext = [path.replace("j2", "html") for path in relative_paths]
+
+    return paths_with_correct_ext
+
+
 def build():
     print("rendering templates...")
 
@@ -36,6 +53,7 @@ def build():
     static_dir = Path("./static")
 
     env = Environment(loader=FileSystemLoader(str(src_dir)), autoescape=True)
+    env.globals.update(get_template_files=get_template_files)
 
     j2_paths = []
     recurse_dir(j2_paths, src_dir, 0, "templates", ".j2")
