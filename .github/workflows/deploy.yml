@@ -14,8 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Render website
+      - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Render website
+        run: |
           uv run ./scripts/build.py
+
+      - name: Deploy to bucket
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_REGION: ap-southeast-2
+        run: |
+          uv run -m awscli s3 sync ./dist ${{ env.AWS_S3_BUCKET }} --delete --region ${{ env.AWS_REGION }}
 
