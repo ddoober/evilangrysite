@@ -14,9 +14,13 @@ check_installed fd
 
 mkdir -p "./dist/"
 uv run -m http.server -d "./dist/" &
-pid=$!
+serve_pid=$!
 
-fd -H --type f . "./src/" "./static/" | entr uv run "./scripts/build.py"
+bash "./scripts/util/entr.sh" &
+watch_pid=$!
 
-kill "$pid"
+trap 'kill $serve_pid $watch_pid' EXIT INT
+
+tail -f /dev/null || true
+
 
