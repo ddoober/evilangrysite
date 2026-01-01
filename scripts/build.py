@@ -1,4 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
+from jinja2 import nodes
+from jinja2.visitor import NodeVisitor
 from pathlib import Path
 import shutil
 import glob
@@ -40,9 +42,36 @@ def get_template_files(pattern: str) -> list:
 
     # Return paths relative to the template directory (for Jinja's `include`)  
     relative_paths = [path.replace(f"{search_path}/", "") for path in file_paths]  
-    paths_with_correct_ext = [path.replace("j2", "html") for path in relative_paths]
 
-    return paths_with_correct_ext
+    return relative_paths
+
+
+class AssignCollector(NodeVisitor):
+    def __init__(self):
+        self.assigns = {}  # name -> node.value
+
+    def visit_Assign(self, node: nodes.Assign):
+        # node.target can be a Name or tuple; handle simple Name
+        if isinstance(node.target, nodes.Name):
+            self.assigns[node.target.name] = node.node
+        # continue traversal
+        self.generic_visit(node)
+
+def get_external_variable(template: str, key: str) -> str:
+    env = Environment(loader=FileSystemLoader("src"))
+    src, filename, uptodate = env.loader.get_source(env, template)
+
+    ast = env.parse(src)
+
+    collector = AssignCollector()
+    collector.visit(ast)
+
+    val = None
+    val_node = collector.assigns.get(key)
+    if isinstance(val_node, nodes.Const) and isinstance(val_node.value, str):
+        val = val_node.value
+
+    return val
 
 
 def build():
@@ -54,6 +83,7 @@ def build():
 
     env = Environment(loader=FileSystemLoader(str(src_dir)), autoescape=True)
     env.globals.update(get_template_files=get_template_files)
+    env.globals.update(get_external_variable=get_external_variable)
 
     j2_paths = []
     recurse_dir(j2_paths, src_dir, 0, "templates", ".j2")

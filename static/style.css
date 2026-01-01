@@ -22,3 +22,39 @@ body {
   align-items: center;
   background: black;
 }
+
+
+.site-header {
+  display: flex;                 /* lay items out in a row */
+  align-items: center;           /* vertically center items */
+  justify-content: space-between;/* left, center, right spacing */
+  gap: 1rem;                     /* uniform spacing between flex children */
+  padding: 0.75rem 1rem;
+  background: #111;
+}
+
+.left, .right {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+
+.logo {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.logo > img {
+  max-height: 100px;
+}
+
+.random_page {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #111827;
+  background: #111827;
+  color: #fff;
+  cursor: pointer;
+}

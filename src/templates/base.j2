@@ -11,8 +11,25 @@
   {% endblock %}
 </head>
 <body>
-  <a href="/"> <img src="/logo.png"></a>
+
+  {% set all_games = get_template_files('game/*.j2') %}
+
+  <header class="site-header">
+    <div class="left">
+      <a class="logo" href="/">
+        <img src="/favicon.png">
+        <img src="/logo.png">
+      </a>
+    </div>
+
+    <div class="right">
+      <button class="random_game" onclick='goto_random({{ all_games | tojson }})'>Random Game</button>
+    </div>
+  </header>
+
   {% block content %}
   {% endblock %}
+
+  <script src="/goto_random.js"></script>
 </body>
 </html>
