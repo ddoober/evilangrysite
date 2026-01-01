@@ -1,0 +1,35 @@
+{% extends "templates/base.j2" %}
+
+{% block title %}{{ game_title }} - evilangry.site{% endblock %}
+
+{% block content %}
+
+  <h1>{{ game_title }}</h1>
+
+  <div id="game-container">
+    {% if turbowarp_url %}
+      <iframe src="{{ turbowarp_url }}" width="700" height="500">
+      </iframe>
+    {% endif %}
+
+    {% if swf_url %}
+      <object width="700" height="500">
+        <param name="movie" value="{{ swf_url }}">
+        <embed src="{{ swf_url }}" width="700" height="500"></embed>
+      </object>
+    {% endif %}
+  </div>
+
+  <button id="fullscreen-btn">Go Fullscreen</button>
+
+  <p>
+    {% block game_description %}
+    {% endblock %}
+  </p>
+
+  {% if swf_url %}
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  {% endif %}
+  <script src="/fullscreen.js"></script>
+
+{% endblock %}
