@@ -4,6 +4,20 @@
 
 {% block content %}
 
+  {% if use_warning %}  
+    <div id="warning-overlay" role="dialog" aria-modal="true">
+      <div id="warning-panel">
+        <h3>{{game_title}}</h3>
+        <h1>Content Warning</h1>
+        {% block warning %}
+        {% endblock %}
+        <br><br>
+        <button id="accept-warning">I understand</button>
+        <button id="deny-warning">No!!!! Go back!!!</button>
+      </div>
+    </div>
+  {% endif %}
+
   <h1>{{ game_title }}</h1>
 
   <div id="game-container">
@@ -30,6 +44,11 @@
   {% if swf_url %}
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
   {% endif %}
+
+  {% if use_warning %}
+    <script src="/warning.js"></script>
+  {% endif %}
+
   <script src="/fullscreen.js"></script>
 
 {% endblock %}

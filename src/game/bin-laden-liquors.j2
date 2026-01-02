@@ -1,5 +1,13 @@
 {% extends "templates/game.j2" %}
 
+{% set use_warning = True %}
+
+{% block warning %}
+this game is a nine eleven era "anti-terrorism" game<br>
+only continue if you wanna see that<br>
+the war on terror was so fucking funny
+{% endblock %}
+
 {% set game_title = "Bin Laden Liquors" %}
 
 {% set swf_url = "/game-content/bin-laden-liquors.swf" %}

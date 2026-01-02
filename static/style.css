@@ -58,3 +58,32 @@ body {
   color: #fff;
   cursor: pointer;
 }
+
+
+#warning-overlay {
+  position: fixed;
+  inset: 0;                 /* top:0;right:0;bottom:0;left:0 */
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 9999;
+}
+#warning-panel {
+  background: #111;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#warning-panel > h1 {
+  color: red;
+}
+
+#warning-panel > button {
+  margin: 0px 50px;
+}
+
+/* hidden state */
+#warning-overlay.hidden { display: none; }

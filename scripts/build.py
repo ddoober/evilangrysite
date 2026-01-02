@@ -74,6 +74,10 @@ def get_external_variable(template: str, key: str) -> str:
     return val
 
 
+def debug_print(text: str):
+    print(text)
+
+
 def build():
     print("rendering templates...")
 
@@ -84,6 +88,7 @@ def build():
     env = Environment(loader=FileSystemLoader(str(src_dir)), autoescape=True)
     env.globals.update(get_template_files=get_template_files)
     env.globals.update(get_external_variable=get_external_variable)
+    env.globals.update(debug_print=debug_print)
 
     j2_paths = []
     recurse_dir(j2_paths, src_dir, 0, "templates", ".j2")
