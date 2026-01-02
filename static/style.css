@@ -85,5 +85,13 @@ body {
   margin: 0px 50px;
 }
 
+button {
+  font: inherit;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
 /* hidden state */
 #warning-overlay.hidden { display: none; }
