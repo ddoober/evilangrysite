@@ -12,4 +12,6 @@
 
     <a href="/{{ game|replace(".j2", ".html") }}">{{ game_title }}</a><br>
   {% endfor %}
+
+  {% include "templates/lilguy.j2" %}
 {% endblock %}
